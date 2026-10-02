@@ -11,3 +11,4 @@ At the moment, Bruin supports the following:
 * [Doppler](./doppler)
 * [AWS Secrets Manager](./aws-secrets-manager)
 * Azure Key Vault (`--secrets-backend azure`)
+* [Keeper](./keeper)

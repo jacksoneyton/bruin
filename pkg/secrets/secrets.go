@@ -10,9 +10,11 @@ var (
 	_ config.ConnectionAndDetailsGetter = (*DopplerClient)(nil)
 	_ config.ConnectionAndDetailsGetter = (*AWSSecretsManagerClient)(nil)
 	_ config.ConnectionAndDetailsGetter = (*AzureKeyVaultClient)(nil)
+	_ config.ConnectionAndDetailsGetter = (*KeeperClient)(nil)
 
 	_ config.ConnectionResolver = (*Client)(nil)
 	_ config.ConnectionResolver = (*DopplerClient)(nil)
 	_ config.ConnectionResolver = (*AWSSecretsManagerClient)(nil)
 	_ config.ConnectionResolver = (*AzureKeyVaultClient)(nil)
+	_ config.ConnectionResolver = (*KeeperClient)(nil)
 )

@@ -59,3 +59,26 @@ func TestConnectionManagerFromConfigRejectsUnknownSecretsBackend(t *testing.T) {
 	require.Len(t, errs, 1)
 	require.Contains(t, errs[0].Error(), `unsupported secrets backend "unknown"`)
 }
+
+func TestConnectionManagerFromConfig_Keeper(t *testing.T) { //nolint:paralleltest // uses t.Setenv
+	ctx := context.WithValue(t.Context(), config.SecretsBackendContextKey, "keeper")
+
+	t.Run("fails without keeper configuration", func(t *testing.T) { //nolint:paralleltest
+		t.Setenv("BRUIN_KEEPER_CONFIG", "")
+		t.Setenv("BRUIN_KEEPER_CONFIG_FILE", "")
+
+		manager, errs := connectionManagerFromConfig(ctx, &config.Config{}, nil)
+		require.Nil(t, manager)
+		require.Len(t, errs, 1)
+		require.ErrorContains(t, errs[0], "failed to initialize Keeper client")
+	})
+
+	t.Run("creates a keeper client from env", func(t *testing.T) { //nolint:paralleltest
+		t.Setenv("BRUIN_KEEPER_CONFIG", `{"hostname":"keepersecurity.com","clientId":"c","appKey":"a","privateKey":"p"}`)
+		t.Setenv("BRUIN_KEEPER_CONFIG_FILE", "")
+
+		manager, errs := connectionManagerFromConfig(ctx, &config.Config{}, nil)
+		require.Empty(t, errs)
+		require.NotNil(t, manager)
+	})
+}

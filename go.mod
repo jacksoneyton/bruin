@@ -294,6 +294,7 @@ require (
 	github.com/bruin-data/bruin/semantic-engine v0.0.0
 	github.com/charmbracelet/x/ansi v0.11.6
 	github.com/gofrs/flock v0.13.0
+	github.com/keeper-security/secrets-manager-go/core v1.7.0
 )
 
 replace github.com/bruin-data/bruin/semantic-engine => ./semantic-engine
